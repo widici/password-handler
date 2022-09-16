@@ -1,36 +1,74 @@
 @echo off
+setlocal enableDelayedExpansion
+set chars=0123456789abcdefghijklmnopqrstuvwxyz
 
 :start
 cls
-echo -set (sets password)
+echo -add (adds password)
 echo -get (gets password)
 echo -list (gets a list of all passwords)
 echo.
 set /p cmd=">>> "
 goto %cmd%
 
-:set
+
+:: Set Command
+:add
 cls
-set /p loc=What is the applictaion? 
-set /p pw=What is the password? 
-echo %pw%>passwords\%loc%.txt
+set /p key=What is the masterkey?: 
+set /p app=What is the application name?: 
+set /p pw=What is the password?: 
+
+:: Encrypter
+for /L %%N in (10 1 36) do (
+    for /F %%C in ("!chars:~%%N,1!") do (
+
+        set /a num=%%N*%key%
+
+        for /F %%F in ("!num!") do (
+           set "pw=!pw:%%C=-%%F!" 
+        )
+    )
+)
+
+echo !pw!>passwords\%app%.txt
 pause
 goto start
 
+
+:: Get Command
 :get
 cls
-set /p loc=What applictaion do you want to get? 
-type passwords\%loc%.txt
+set /p key=What is the masterkey?: 
+set /p app=What is the application name?: 
+set /p pw=< passwords\%app%.txt
+set chars=0123456789abcdefghijklmnopqrstuvwxyz
+
+:: Decrypter
+for /L %%N in (10 1 36) do (
+    for /F %%C in ("!chars:~%%N,1!") do (
+
+        set /a num=%%N*%key%
+
+        for /F %%F in ("!num!") do (
+           set "pw=!pw:%%F=%%C!" 
+        )
+    )
+)
+
+for /F %%F in ("!pw!") do (
+    set "pw=!pw:-=!"
+)
+
+echo !pw!
 pause
 goto start
 
+
+:: List
 :list
 cls
-for %%f in (passwords\*.*) do (
-    echo %%~nf
-    echo passwords\%%~nf.txt
-    echo "passwords\example.txt"
-)
+for %%f in (passwords\*.*) do echo %%~nf
 echo.
 pause
 goto start
