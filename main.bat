@@ -26,7 +26,11 @@ goto start
 
 :list
 cls
-for %%f in (passwords\*.*) do echo %%~nf
+for %%f in (passwords\*.*) do (
+    echo %%~nf
+    echo passwords\%%~nf.txt
+    echo "passwords\example.txt"
+)
 echo.
 pause
 goto start
