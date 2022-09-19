@@ -42,7 +42,6 @@ cls
 set /p key=What is the masterkey?: 
 set /p app=What is the application name?: 
 set /p pw=< passwords\%app%.txt
-set chars=0123456789abcdefghijklmnopqrstuvwxyz
 
 :: Decrypter
 for /L %%N in (10 1 36) do (
@@ -65,7 +64,7 @@ pause
 goto start
 
 
-:: List
+:: List Command
 :list
 cls
 for %%f in (passwords\*.*) do echo %%~nf
