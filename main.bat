@@ -12,9 +12,11 @@ echo.
 set /p cmd=">>> "
 goto %cmd%
 
+
 :::::::::::::::
 :: Functions ::
 :::::::::::::::
+
 
 :: Checks if txt file exists
 :valid_app
@@ -61,17 +63,20 @@ for /F %%F in ("!pw!") do (
 )
 goto :end
 
+
 ::::::::::::::
 :: Commands ::
 ::::::::::::::
 
-:: Set Command
+
+:: Add Command
 :add
 cls
 set /p key=What is the masterkey?: 
 set /p app=What is the application name?: 
 set /p pw=What is the password?: 
 
+call :encrypter
 
 echo !pw!>passwords\%app%.txt
 pause
