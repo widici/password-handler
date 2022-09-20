@@ -7,9 +7,22 @@ cls
 echo -add (adds password)
 echo -get (gets password)
 echo -list (gets a list of all passwords)
+
 echo.
 set /p cmd=">>> "
 goto %cmd%
+
+
+:: Checks if txt file exists
+:valid_app
+if not exist passwords\%app%.txt (
+    cls
+    echo Application doesn't exist
+    pause
+    goto :start
+
+)
+goto :end
 
 
 :: Set Command
@@ -43,6 +56,8 @@ set /p key=What is the masterkey?:
 set /p app=What is the application name?: 
 set /p pw=< passwords\%app%.txt
 
+call :valid_app
+
 :: Decrypter
 for /L %%N in (10 1 36) do (
     for /F %%C in ("!chars:~%%N,1!") do (
@@ -71,3 +86,5 @@ for %%f in (passwords\*.*) do echo %%~nf
 echo.
 pause
 goto start
+
+:end
