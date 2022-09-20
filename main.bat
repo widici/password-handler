@@ -10,6 +10,7 @@ echo -list (gets a list of all passwords)
 
 echo.
 set /p cmd=">>> "
+
 goto %cmd%
 
 
@@ -27,7 +28,7 @@ if not exist passwords\%app%.txt (
     goto :start
 
 )
-goto :end
+exit /b
 
 
 :: Encrypter
@@ -42,7 +43,7 @@ for /L %%N in (10 1 36) do (
         )
     )
 )
-goto :end
+exit /b
 
 
 :: Decrypter
@@ -61,7 +62,7 @@ for /L %%N in (10 1 36) do (
 for /F %%F in ("!pw!") do (
     set "pw=!pw:-=!"
 )
-goto :end
+exit /b
 
 
 ::::::::::::::
@@ -106,5 +107,3 @@ for %%f in (passwords\*.*) do echo %%~nf
 echo.
 pause
 goto start
-
-:end
