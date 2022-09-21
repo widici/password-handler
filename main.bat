@@ -11,6 +11,17 @@ echo -list (gets a list of all passwords)
 echo.
 set /p cmd=">>> "
 
+if %cmd% NEQ add (
+    if %cmd% NEQ get (
+        if %cmd% NEQ list (
+            echo.
+            echo command %cmd% not found!
+            pause
+            goto start
+        )
+    )
+)
+
 goto %cmd%
 
 
