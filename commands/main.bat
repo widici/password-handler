@@ -9,6 +9,7 @@ echo -list (gets a list of all passwords)
 echo.
 set /p cmd=">>> "
 
+:: If command doesn't exist -> restarts | calls command
 if not exist commands\%cmd%.bat (
     cls
     echo Command not found
@@ -17,6 +18,4 @@ if not exist commands\%cmd%.bat (
 
 )
 
-if exist commands\%cmd%.bat do (
-    call commands\%cmd%.bat
-)
+call commands\%cmd%.bat
