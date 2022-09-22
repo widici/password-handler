@@ -10,7 +10,7 @@ if not exist passwords\%app%.txt (
     cls
     echo Application doesn't exist
     pause
-    goto :start
+    call commands\main.bat
 
 )
 
