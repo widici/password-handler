@@ -1,3 +1,6 @@
+setlocal enableDelayedExpansion
+set chars=0123456789abcdefghijklmnopqrstuvwxyz
+
 cls
 set /p key=What is the masterkey?: 
 set /p app=What is the application name?: 
@@ -28,4 +31,4 @@ for /F %%F in ("!pw!") do (
 
 echo !pw!
 pause
-call main.bat
+call commands\main.bat

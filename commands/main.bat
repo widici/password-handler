@@ -1,6 +1,4 @@
 @echo off
-setlocal enableDelayedExpansion
-set chars=0123456789abcdefghijklmnopqrstuvwxyz
 
 :start
 cls
@@ -11,15 +9,6 @@ echo -list (gets a list of all passwords)
 echo.
 set /p cmd=">>> "
 
-if %cmd% NEQ add (
-    if %cmd% NEQ get (
-        if %cmd% NEQ list (
-            echo.
-            echo command %cmd% not found!
-            pause
-            goto start
-        )
-    )
+if exist commands\%cmd%.bat do (
+    call commands\%cmd%.bat
 )
-
-call commands\%cmd%.bat
